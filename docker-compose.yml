@@ -1,0 +1,39 @@
+version: "3"
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test_db
+
+  bot:
+    image: denizkose/testy:bot
+    restart: always
+    depends_on:
+      - db
+
+  server:
+    image: denizkose/testy:server
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - db
+
+  web:
+    image: denizkose/testy:web
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - db
+
+  script:
+    image: denizkose/testy:script
+    restart: always
+    depends_on:
+      - db
+

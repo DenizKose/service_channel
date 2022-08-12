@@ -1,0 +1,4 @@
+venv
+front/node_modules
+.dockerignore
+docker-compose-debug.yml
